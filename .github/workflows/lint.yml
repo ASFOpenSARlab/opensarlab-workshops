@@ -10,7 +10,7 @@ jobs:
       - uses: psf/black@stable
         with:
           options: "--check --verbose"
-          src: "./"
+          src: $GITHUB_WORKSPACE
           jupyter: true
   linting:
     runs-on: ubuntu-latest
