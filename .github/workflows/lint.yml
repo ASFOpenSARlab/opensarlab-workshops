@@ -23,8 +23,8 @@ jobs:
       - name: Install flake8
         run: pip install flake8 flake8-bugbear
       - name: Run flake8
-        run: flake8 --verbose --exit-zero --config ./.flake8 .
+        run: flake8 --verbose --exit-zero --config ${{ vars.GITHUB_WORKSPACE }}/.flake8 ${{ vars.GITHUB_WORKSPACE }}
       - name: Install nbqa
         run: pip install nbqa
       - name: Run nbqa
-        run: nbqa flake8 --verbose --exit-zero --config ./.flake8 .
+        run: nbqa flake8 --verbose --exit-zero --config ${{ vars.GITHUB_WORKSPACE }}/.flake8 ${{ vars.GITHUB_WORKSPACE }}
