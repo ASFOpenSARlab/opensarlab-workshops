@@ -1,0 +1,30 @@
+name: lint
+
+on: [pull_request]
+
+jobs:
+  check_formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          jupyter: true
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11.2
+          architecture: x64
+      - name: Install flake8
+        run: python3.11 -m pip install flake8 flake8-bugbear flake8-docstrings
+      - name: Run flake8
+        run: flake8 --verbose --exit-zero --config $GITHUB_WORKSPACE/.flake8
+      - name: Install nbqa
+        run: python3.11 -m pip install nbqa
+      - name: Run nbqa
+        run: nbqa flake8 --verbose --exit-zero --config $GITHUB_WORKSPACE/.flake8 $GITHUB_WORKSPACE
